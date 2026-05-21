@@ -1,49 +1,299 @@
+# Elyra Shree Luxury Jewelry Website
+
+Save the following code as `index.html` in your GitHub repository.
+
+```html
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Elyra Shree</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Elyra By Shree Creations</title>
 
   <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: 'Georgia', serif;
+    }
+
     body{
-      background:black;
+      background:#000;
       color:white;
-      font-family:Arial;
+      overflow-x:hidden;
+    }
+
+    .hero{
+      min-height:100vh;
+      background:linear-gradient(to bottom,#000,#0b0b0b);
+      padding:40px 20px;
       text-align:center;
-      margin-top:100px;
+    }
+
+    .logo{
+      width:150px;
+      height:150px;
+      border:2px solid #c89b3c;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin:0 auto 20px;
+      color:#c89b3c;
+      font-size:42px;
+      font-weight:bold;
     }
 
     h1{
-      color:gold;
-      font-size:50px;
+      font-size:60px;
+      color:white;
+      margin-bottom:10px;
+      letter-spacing:2px;
     }
 
-    img{
-      width:300px;
+    .tagline{
+      color:#d4af37;
+      font-size:24px;
+      margin-bottom:50px;
+    }
+
+    .categories{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+      max-width:1300px;
+      margin:auto;
+    }
+
+    .category-btn{
+      background:#0d0d0d;
+      border:2px solid #c89b3c;
       border-radius:20px;
+      overflow:hidden;
+      cursor:pointer;
+      transition:0.4s;
+      box-shadow:0 0 20px rgba(212,175,55,0.15);
     }
 
-    button{
-      padding:15px 30px;
+    .category-btn:hover{
+      transform:translateY(-10px) scale(1.02);
+      box-shadow:0 0 30px rgba(212,175,55,0.35);
+    }
+
+    .category-btn img{
+      width:100%;
+      height:250px;
+      object-fit:cover;
+    }
+
+    .category-btn h2{
+      padding:18px;
+      color:#d4af37;
+      font-size:26px;
+    }
+
+    .gallery{
+      display:none;
+      padding:60px 20px;
+      max-width:1400px;
+      margin:auto;
+    }
+
+    .gallery.active{
+      display:block;
+    }
+
+    .gallery h2{
+      text-align:center;
+      color:#d4af37;
+      font-size:50px;
+      margin-bottom:40px;
+    }
+
+    .gallery-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+      gap:25px;
+    }
+
+    .gallery-grid img{
+      width:100%;
+      border-radius:20px;
+      border:2px solid #c89b3c;
+      transition:0.4s;
+    }
+
+    .gallery-grid img:hover{
+      transform:scale(1.04);
+      box-shadow:0 0 25px rgba(212,175,55,0.35);
+    }
+
+    .back-btn{
+      display:block;
+      margin:40px auto;
+      padding:14px 30px;
+      background:#c89b3c;
       border:none;
-      background:gold;
+      border-radius:40px;
       font-size:18px;
-      border-radius:10px;
       cursor:pointer;
+      font-weight:bold;
+    }
+
+    footer{
+      padding:30px;
+      text-align:center;
+      color:#aaa;
+      border-top:1px solid #222;
+      margin-top:50px;
+    }
+
+    @media(max-width:768px){
+      h1{
+        font-size:38px;
+      }
+
+      .tagline{
+        font-size:18px;
+      }
     }
   </style>
 </head>
-
 <body>
 
-  <h1>ELYRA SHREE</h1>
+<section class="hero" id="home">
 
-  <p>Luxury Lab-Grown Diamond Creations</p>
+  <div class="logo">ELYRA</div>
 
-  <img src="https://images.unsplash.com/photo-1617038220319-276d3cfab638?q=80&w=1200&auto=format&fit=crop">
+  <h1>ELYRA BY SHREE CREATIONS</h1>
 
-  <br><br>
+  <p class="tagline">Labgrown Diamonds • Customised Jewellery</p>
 
-  <button>Explore Collection</button>
+  <div class="categories">
+
+    <div class="category-btn" onclick="openGallery('earrings')">
+      <img src="1.jpg">
+      <h2>Earrings</h2>
+    </div>
+
+    <div class="category-btn" onclick="openGallery('rings')">
+      <img src="2.jpg">
+      <h2>Rings</h2>
+    </div>
+
+    <div class="category-btn" onclick="openGallery('necklaces')">
+      <img src="3.jpg">
+      <h2>Necklaces</h2>
+    </div>
+
+    <div class="category-btn" onclick="openGallery('pendants')">
+      <img src="4.jpg">
+      <h2>Pendants</h2>
+    </div>
+
+    <div class="category-btn" onclick="openGallery('bracelets')">
+      <img src="5.jpg">
+      <h2>Bangles / Bracelets</h2>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="gallery" id="gallerySection">
+
+  <h2 id="galleryTitle"></h2>
+
+  <div class="gallery-grid" id="galleryGrid"></div>
+
+  <button class="back-btn" onclick="goHome()">Back To Home</button>
+
+</section>
+
+<footer>
+  © 2026 Elyra By Shree Creations • Luxury Labgrown Jewellery
+</footer>
+
+<script>
+
+const galleryImages = {
+
+  earrings:[
+    '1.jpg',
+    '2.jpg',
+    '3.jpg'
+  ],
+
+  rings:[
+    '2.jpg',
+    '1.jpg'
+  ],
+
+  necklaces:[
+    '3.jpg',
+    '4.jpg'
+  ],
+
+  pendants:[
+    '4.jpg',
+    '3.jpg'
+  ],
+
+  bracelets:[
+    '5.jpg',
+    '1.jpg'
+  ]
+
+};
+
+function openGallery(category){
+
+  document.getElementById('home').style.display='none';
+
+  const gallery=document.getElementById('gallerySection');
+
+  gallery.classList.add('active');
+
+  document.getElementById('galleryTitle').innerText=
+  category.charAt(0).toUpperCase()+category.slice(1);
+
+  const grid=document.getElementById('galleryGrid');
+
+  grid.innerHTML='';
+
+  galleryImages[category].forEach(img=>{
+
+    const image=document.createElement('img');
+
+    image.src=img;
+
+    grid.appendChild(image);
+
+  });
+}
+
+function goHome(){
+
+  document.getElementById('home').style.display='block';
+
+  document.getElementById('gallerySection').classList.remove('active');
+
+  window.scrollTo(0,0);
+}
+
+</script>
 
 </body>
 </html>
+```
+
+Upload these image files in the same GitHub repository folder:
+
+* 1.jpg
+* 2.jpg
+* 3.jpg
+* 4.jpg
+* 5.jpg
+
+Then commit changes and your luxury website will work with clickable category buttons and galleries.
