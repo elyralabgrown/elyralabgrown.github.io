@@ -191,11 +191,11 @@
 
 <script>
 const CATEGORIES = [
-  {id:'rings', name:'Rings', icon:'💍', count:12},
-  {id:'necklaces', name:'Necklaces', icon:'📿', count:12},
-  {id:'earrings', name:'Earrings', icon:'✨', count:12},
-  {id:'bangles', name:'Bangles', icon:'⭕', count:10},
-  {id:'mangalsutra', name:'Mangalsutra', icon:'🔗', count:8},
+  {id:'rings', name:'Rings', icon:'💍', count:13},
+  {id:'necklaces', name:'Necklaces', icon:'📿', count:17},
+  {id:'earrings', name:'Earrings', icon:'✨', count:13},
+  {id:'bangles', name:'Bangles', icon:'⭕', count:22},
+  {id:'mangalsutra', name:'Mangalsutra', icon:'🔗', count:22},
 ];
 
 // Self-contained SVG jewelry placeholder generator (no external images needed)
@@ -218,8 +218,58 @@ function svgIcon(catId, seed){
   </svg>`;
   return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 }
+const REAL_IMAGES = {
+  rings: [
+    "https://i.imgur.com/aasbpU0.jpeg","https://i.imgur.com/e3ofqV8.jpeg","https://i.imgur.com/8bhMLAZ.jpeg",
+    "https://i.imgur.com/wGRuslE.jpeg","https://i.imgur.com/A5tSHoh.jpeg","https://i.imgur.com/SfT6m6d.jpeg",
+    "https://i.imgur.com/T3vy052.jpeg","https://i.imgur.com/rTTbIHR.jpeg","https://i.imgur.com/MlfwIyJ.jpeg",
+    "https://i.imgur.com/HmeleNr.jpeg","https://i.imgur.com/s7t435a.jpeg","https://i.imgur.com/lNn9zYc.jpeg",
+    "https://i.imgur.com/G2XYnIr.jpeg"
+  ],
+  earrings: [
+    "https://i.imgur.com/j3QqaS8.jpeg","https://i.imgur.com/YcJnwVN.jpeg","https://i.imgur.com/CvCJfZ0.jpeg",
+    "https://i.imgur.com/pTtgF4m.jpeg","https://i.imgur.com/dx1U4Ru.jpeg","https://i.imgur.com/wB6ACRF.jpeg",
+    "https://i.imgur.com/f9oYAmk.jpeg","https://i.imgur.com/wLvUcyT.jpeg","https://i.imgur.com/41GARhf.jpeg",
+    "https://i.imgur.com/V3GAu2P.jpeg","https://i.imgur.com/g3M3tDK.jpeg","https://i.imgur.com/IMt29Qs.jpeg",
+    "https://i.imgur.com/xcEeQmS.jpeg"
+  ],
+  necklaces: [
+    "https://i.imgur.com/4vVoDas.jpeg","https://i.imgur.com/fl2LSDG.jpeg","https://i.imgur.com/prvHl0Z.jpeg",
+    "https://i.imgur.com/C8v0nAp.jpeg","https://i.imgur.com/V8tnK7J.jpeg","https://i.imgur.com/Eig77e5.jpeg",
+    "https://i.imgur.com/yA7PoUE.jpeg","https://i.imgur.com/xMXVWkx.jpeg","https://i.imgur.com/geKxaXX.jpeg",
+    "https://i.imgur.com/qrg7KD6.jpeg","https://i.imgur.com/EwVfINY.jpeg","https://i.imgur.com/oR9CMTT.jpeg",
+    "https://i.imgur.com/xrRmh9z.jpeg","https://i.imgur.com/CGOEOG7.jpeg","https://i.imgur.com/mG0dkdl.jpeg",
+    "https://i.imgur.com/g7Yw5iq.jpeg","https://i.imgur.com/4kRY5uW.jpeg"
+  ],
+  bangles: [
+    "https://i.imgur.com/9f76X4O.jpeg","https://i.imgur.com/l9cViIh.jpeg","https://i.imgur.com/hoSiA9d.jpeg",
+    "https://i.imgur.com/ICWzE27.jpeg","https://i.imgur.com/IbScZFe.jpeg","https://i.imgur.com/qoeQjFs.jpeg",
+    "https://i.imgur.com/y3vpWNo.jpeg","https://i.imgur.com/mD86oYp.jpeg","https://i.imgur.com/lAQi4LV.jpeg",
+    "https://i.imgur.com/fb0XPhC.jpeg","https://i.imgur.com/lwCrliU.jpeg","https://i.imgur.com/6yEct11.jpeg",
+    "https://i.imgur.com/Sz7MMw1.jpeg","https://i.imgur.com/6kF4PD3.jpeg","https://i.imgur.com/gk2cocC.jpeg",
+    "https://i.imgur.com/1fqujyY.jpeg","https://i.imgur.com/S1l0Cxi.jpeg","https://i.imgur.com/nSJA1ln.jpeg",
+    "https://i.imgur.com/PHCWkpY.jpeg","https://i.imgur.com/CpOmRya.jpeg","https://i.imgur.com/Yx9FKWD.jpeg",
+    "https://i.imgur.com/XrwrSKu.jpeg"
+  ],
+  mangalsutra: [
+    "https://i.imgur.com/mbhjyCK.jpeg","https://i.imgur.com/K1JGMFn.jpeg","https://i.imgur.com/LmYAuqo.jpeg",
+    "https://i.imgur.com/vCxzCsq.jpeg","https://i.imgur.com/4TCdasy.jpeg","https://i.imgur.com/fzbHyyc.jpeg",
+    "https://i.imgur.com/2Q7I5HJ.jpeg","https://i.imgur.com/yAHwsLZ.jpeg","https://i.imgur.com/ohtjMOu.jpeg",
+    "https://i.imgur.com/aqWcQhn.jpeg","https://i.imgur.com/HLkvfsM.jpeg","https://i.imgur.com/7R90AIq.jpeg",
+    "https://i.imgur.com/JiOvdeS.jpeg","https://i.imgur.com/2nSw03L.jpeg","https://i.imgur.com/9VXqqxM.jpeg",
+    "https://i.imgur.com/y7lT0p1.jpeg","https://i.imgur.com/sOT7a7m.jpeg","https://i.imgur.com/puBtFtR.jpeg",
+    "https://i.imgur.com/d645chh.jpeg","https://i.imgur.com/OKW4Ld8.jpeg","https://i.imgur.com/52aeCYm.jpeg",
+    "https://i.imgur.com/AqLhzCa.jpeg"
+  ]
+};
+function realOrFallback(catId, idx){
+  const arr = REAL_IMAGES[catId];
+  if(arr && arr.length){
+    return arr[idx % arr.length];
+  }
+  return null;
+}
 function imgFor(seed){
-  // fallback generic sparkle tile when no category context
   return svgIcon('rings', hashStr(seed));
 }
 function hashStr(s){
@@ -242,7 +292,7 @@ function genProducts(catId, count){
       id: catId+'_'+i,
       name: list[i % list.length] + ' ' + (Math.floor(i/list.length)+1),
       price: '₹' + (15000 + (i*3500)).toLocaleString('en-IN'),
-      img: svgIcon(catId, i+1),
+      img: realOrFallback(catId, i) || svgIcon(catId, i+1),
       cat: catId
     });
   }
@@ -266,7 +316,10 @@ function render(){
       <div class="hero">
         <img src="https://i.imgur.com/x01lGMc.jpeg" style="width:80px;height:80px;object-fit:contain;margin-bottom:10px;">
         <div class="hero-photo-strip">
-          ${[1,2,3,4,5].map(i=>`<img class="hero-photo" src="${imgFor('hero'+i)}">`).join('')}
+          ${[
+            REAL_IMAGES.rings[0], REAL_IMAGES.necklaces[0], REAL_IMAGES.earrings[0],
+            REAL_IMAGES.bangles[0], REAL_IMAGES.mangalsutra[0]
+          ].map(src=>`<img class="hero-photo" src="${src}">`).join('')}
         </div>
         <div class="hero-title">ELYRA</div>
         <div class="hero-sub">Shree Creations</div>
@@ -307,7 +360,7 @@ function render(){
         <div class="cat-grid">
           ${CATEGORIES.map(c=>`
             <div class="cat-box" onclick="openCat('${c.id}')">
-              <img src="${svgIcon(c.id, 99)}">
+              <img src="${realOrFallback(c.id, 0) || svgIcon(c.id, 99)}">
               <div class="cat-name">${c.name}</div>
             </div>
           `).join('')}
@@ -361,5 +414,3 @@ render();
 </script>
 </body>
 </html>
-
-Then commit changes and your luxury website will work with clickable category buttons and galleries.
