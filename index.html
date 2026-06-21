@@ -285,13 +285,24 @@ function genProducts(catId, count){
     bangles:['Gold Kada','Diamond Bangle','Classic Bangle Set','Antique Bangle'],
     mangalsutra:['Traditional Mangalsutra','Diamond Mangalsutra','Modern Design Mangalsutra']
   };
+  // Rough placeholder ranges per category (14K gold + labgrown diamond/semi-precious stones)
+  const priceRanges = {
+    rings: [12000, 45000],
+    necklaces: [25000, 95000],
+    earrings: [10000, 38000],
+    bangles: [30000, 110000],
+    mangalsutra: [18000, 55000]
+  };
+  const [minP, maxP] = priceRanges[catId] || [10000, 40000];
   const list = names[catId] || ['Jewellery Item'];
   const items = [];
   for(let i=0;i<count;i++){
+    const priceStep = (maxP - minP) / Math.max(count-1,1);
+    const price = Math.round((minP + priceStep*i) / 500) * 500;
     items.push({
       id: catId+'_'+i,
       name: list[i % list.length] + ' ' + (Math.floor(i/list.length)+1),
-      price: '₹' + (15000 + (i*3500)).toLocaleString('en-IN'),
+      price: '₹' + price.toLocaleString('en-IN'),
       img: realOrFallback(catId, i) || svgIcon(catId, i+1),
       cat: catId
     });
