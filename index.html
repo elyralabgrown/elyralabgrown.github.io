@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Elyra by Shree Creation</title>
+<title>Elyra by Shree Creations</title>
 <style>
   :root{
     --gold:#d4af37;
@@ -14,28 +14,44 @@
     --muted:#a99f8c;
   }
   *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
   body{
     background:var(--bg);
     color:var(--text);
     font-family:'Georgia','Times New Roman',serif;
     min-height:100vh;
+    animation:fadeIn .5s ease;
   }
+  @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+  @keyframes shimmer{
+    0%{background-position:-200% 0;}
+    100%{background-position:200% 0;}
+  }
+  @keyframes floatUp{
+    from{opacity:0;transform:translateY(16px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @keyframes sparklePulse{
+    0%,100%{filter:drop-shadow(0 0 4px rgba(212,175,55,0.5));}
+    50%{filter:drop-shadow(0 0 14px rgba(212,175,55,0.9));}
+  }
+
   .header{
     position:sticky;top:0;z-index:50;
     background:linear-gradient(180deg,rgba(11,11,13,0.97),rgba(11,11,13,0.9));
     border-bottom:1px solid rgba(212,175,55,0.3);
     padding:14px 20px;
     display:flex;align-items:center;justify-content:space-between;
+    backdrop-filter:blur(6px);
   }
   .logo{
     display:flex;align-items:center;gap:10px;cursor:pointer;
+    transition:opacity .2s;
   }
+  .logo:hover{opacity:0.85;}
   .logo-mark{
-    width:38px;height:38px;border-radius:50%;
-    background:radial-gradient(circle at 30% 30%,var(--gold-light),var(--gold) 60%,#8a6d1a);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:bold;color:#1a1a1a;font-size:14px;font-family:serif;
-    box-shadow:0 0 12px rgba(212,175,55,0.5);
+    width:34px;height:34px;display:flex;align-items:center;justify-content:center;
+    animation:sparklePulse 3.5s ease-in-out infinite;
   }
   .logo-text{font-size:18px;letter-spacing:2px;color:var(--gold-light);}
   .logo-text small{display:block;font-size:9px;letter-spacing:1px;color:var(--muted);font-style:italic;}
@@ -45,13 +61,28 @@
     cursor:pointer;font-size:13px;letter-spacing:1px;
     transition:all .25s;
   }
-  .nav-btn:hover{background:var(--gold);color:#111;}
-  .back-btn{
-    background:none;border:none;color:var(--gold-light);
-    cursor:pointer;font-size:14px;padding:6px 0;margin-bottom:10px;
-    display:inline-flex;align-items:center;gap:6px;
+  .nav-btn:hover{background:var(--gold);color:#111;box-shadow:0 4px 14px rgba(212,175,55,0.4);}
+
+  .back-btn-big{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(135deg,rgba(212,175,55,0.15),rgba(212,175,55,0.05));
+    border:1.5px solid var(--gold);
+    color:var(--gold-light);
+    padding:13px 26px;
+    border-radius:40px;
+    cursor:pointer;
+    font-size:15px;letter-spacing:1.5px;
+    font-family:inherit;
+    margin-bottom:24px;
+    transition:all .25s;
+    box-shadow:0 4px 14px rgba(0,0,0,0.3);
   }
-  .back-btn:hover{color:var(--gold);}
+  .back-btn-big:hover{
+    background:var(--gold);color:#111;
+    transform:translateX(-4px);
+    box-shadow:0 6px 20px rgba(212,175,55,0.4);
+  }
+  .back-btn-big .arrow{font-size:18px;}
 
   /* HERO / HOME */
   .hero{
@@ -60,49 +91,80 @@
     display:flex;flex-direction:column;align-items:center;justify-content:center;
     text-align:center;
     overflow:hidden;
-    padding:40px 20px;
+    padding:50px 20px 40px;
     background:
-      radial-gradient(circle at 50% 20%, rgba(212,175,55,0.12), transparent 60%),
+      radial-gradient(circle at 50% 15%, rgba(212,175,55,0.14), transparent 55%),
+      radial-gradient(circle at 80% 80%, rgba(212,175,55,0.06), transparent 50%),
       linear-gradient(160deg,#0b0b0d, #131318 60%, #0b0b0d);
   }
+  .hero::before{
+    content:'';position:absolute;inset:0;
+    background-image: radial-gradient(1px 1px at 20% 30%, rgba(255,255,255,0.4) 0, transparent 0),
+                       radial-gradient(1px 1px at 70% 60%, rgba(255,255,255,0.3) 0, transparent 0),
+                       radial-gradient(1px 1px at 40% 80%, rgba(255,255,255,0.3) 0, transparent 0),
+                       radial-gradient(1px 1px at 90% 20%, rgba(255,255,255,0.3) 0, transparent 0);
+    pointer-events:none;
+  }
   .hero-photo-strip{
-    display:flex;gap:10px;margin-bottom:36px;flex-wrap:wrap;justify-content:center;
+    display:flex;gap:12px;margin-bottom:36px;flex-wrap:wrap;justify-content:center;
+    position:relative;z-index:1;
   }
   .hero-photo{
-    width:90px;height:120px;border-radius:8px;object-fit:cover;
-    border:1px solid rgba(212,175,55,0.4);
-    box-shadow:0 6px 18px rgba(0,0,0,0.6);
-    transform:translateY(0);transition:transform .3s;
+    width:92px;height:122px;border-radius:10px;object-fit:cover;
+    border:1px solid rgba(212,175,55,0.45);
+    box-shadow:0 8px 22px rgba(0,0,0,0.65);
+    transition:transform .35s, box-shadow .35s;
+    animation:floatUp .6s ease backwards;
   }
-  .hero-photo:hover{transform:translateY(-6px);}
+  .hero-photo:nth-child(1){animation-delay:.05s;}
+  .hero-photo:nth-child(2){animation-delay:.15s;}
+  .hero-photo:nth-child(3){animation-delay:.25s;}
+  .hero-photo:nth-child(4){animation-delay:.35s;}
+  .hero-photo:nth-child(5){animation-delay:.45s;}
+  .hero-photo:hover{transform:translateY(-8px) scale(1.04);box-shadow:0 14px 30px rgba(212,175,55,0.3);}
   .hero-title{
-    font-size:42px;letter-spacing:4px;color:var(--gold-light);
-    text-shadow:0 0 20px rgba(212,175,55,0.4);
-    margin-bottom:6px;
+    font-size:46px;letter-spacing:5px;
+    background:linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 25%, #fff7d6 50%, var(--gold-light) 75%, var(--gold) 100%);
+    background-size:200% auto;
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
+    animation:shimmer 5s linear infinite;
+    margin-bottom:4px;
+    position:relative;z-index:1;
   }
   .hero-sub{
-    font-size:15px;letter-spacing:3px;color:var(--muted);
-    margin-bottom:30px;text-transform:uppercase;
+    font-size:16px;letter-spacing:4px;color:var(--muted);
+    margin-bottom:14px;text-transform:uppercase;
+    position:relative;z-index:1;
+  }
+  .tagline{
+    color:var(--gold-light);font-size:14.5px;letter-spacing:1px;margin-bottom:6px;font-style:italic;
+    position:relative;z-index:1;
+  }
+  .tagline2{
+    color:var(--muted);font-size:13px;letter-spacing:1px;margin-bottom:30px;
+    position:relative;z-index:1;
   }
   .cta-btn{
     background:linear-gradient(135deg,var(--gold-light),var(--gold));
-    color:#111;border:none;padding:14px 38px;
+    color:#111;border:none;padding:15px 42px;
     border-radius:30px;font-size:14px;letter-spacing:2px;
     cursor:pointer;font-weight:bold;text-transform:uppercase;
     box-shadow:0 8px 24px rgba(212,175,55,0.35);
-    transition:transform .2s;
+    transition:transform .2s, box-shadow .2s;
+    position:relative;z-index:1;
   }
-  .cta-btn:hover{transform:translateY(-3px);}
+  .cta-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(212,175,55,0.5);}
   .about-strip{
     max-width:600px;margin:30px auto 0;color:var(--muted);font-size:14px;line-height:1.7;
-    padding:0 10px;
+    padding:0 10px;position:relative;z-index:1;
   }
   .insta-tag{
     margin-top:18px;color:var(--gold-light);font-size:13px;letter-spacing:1px;
+    position:relative;z-index:1;
   }
 
   /* CATALOG CATEGORIES */
-  .page{padding:30px 20px 60px;max-width:1100px;margin:0 auto;}
+  .page{padding:34px 20px 60px;max-width:1100px;margin:0 auto;animation:floatUp .4s ease;}
   .section-title{
     text-align:center;font-size:26px;letter-spacing:3px;color:var(--gold-light);
     margin-bottom:8px;
@@ -111,65 +173,110 @@
     text-align:center;color:var(--muted);font-size:13px;margin-bottom:30px;letter-spacing:1px;
   }
   .cat-grid{
-    display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-    gap:16px;
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:18px;
   }
   .cat-box{
     background:var(--card);
     border:1px solid rgba(212,175,55,0.25);
-    border-radius:12px;
+    border-radius:14px;
     overflow:hidden;cursor:pointer;
-    transition:transform .25s, box-shadow .25s;
+    transition:transform .3s, box-shadow .3s, border-color .3s;
+    text-align:center;
+    position:relative;
+  }
+  .cat-box:hover{
+    transform:translateY(-6px);
+    box-shadow:0 12px 30px rgba(212,175,55,0.22);
+    border-color:rgba(212,175,55,0.6);
+  }
+  .cat-box img{width:100%;height:140px;object-fit:cover;display:block;transition:transform .4s;}
+  .cat-box:hover img{transform:scale(1.08);}
+  .cat-box .cat-name{
+    padding:12px 6px;font-size:14px;letter-spacing:1.5px;color:var(--gold-light);
+  }
+
+  /* PRICE NOTICE */
+  .price-notice{
+    background:rgba(212,175,55,0.08);
+    border:1px solid rgba(212,175,55,0.3);
+    border-radius:12px;
+    padding:14px 18px;
+    margin-bottom:26px;
+    font-size:12.5px;
+    color:var(--muted);
+    line-height:1.6;
     text-align:center;
   }
-  .cat-box:hover{transform:translateY(-5px);box-shadow:0 10px 26px rgba(212,175,55,0.18);}
-  .cat-box img{width:100%;height:130px;object-fit:cover;display:block;}
-  .cat-box .cat-name{
-    padding:10px 6px;font-size:14px;letter-spacing:1.5px;color:var(--gold-light);
-  }
+  .price-notice strong{color:var(--gold-light);}
+  .price-notice a{color:var(--gold-light);text-decoration:none;border-bottom:1px dotted var(--gold);}
 
   /* PRODUCT GRID */
   .prod-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
-    gap:16px;margin-top:10px;
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(155px,1fr));
+    gap:18px;margin-top:10px;
   }
   .prod-card{
     background:var(--card);border:1px solid rgba(212,175,55,0.2);
-    border-radius:10px;overflow:hidden;cursor:pointer;
-    transition:transform .2s,box-shadow .2s;
+    border-radius:12px;overflow:hidden;cursor:pointer;
+    transition:transform .25s,box-shadow .25s,border-color .25s;
   }
-  .prod-card:hover{transform:translateY(-4px);box-shadow:0 8px 20px rgba(212,175,55,0.15);}
-  .prod-card img{width:100%;height:150px;object-fit:cover;display:block;}
-  .prod-card .pname{padding:8px 10px;font-size:12.5px;color:var(--text);letter-spacing:0.5px;}
-  .prod-card .pprice{padding:0 10px 10px;font-size:12px;color:var(--gold-light);}
+  .prod-card:hover{
+    transform:translateY(-5px);
+    box-shadow:0 10px 24px rgba(212,175,55,0.18);
+    border-color:rgba(212,175,55,0.5);
+  }
+  .prod-card img{width:100%;height:155px;object-fit:cover;display:block;transition:transform .4s;}
+  .prod-card:hover img{transform:scale(1.06);}
+  .prod-card .pname{padding:9px 10px 2px;font-size:12.5px;color:var(--text);letter-spacing:0.5px;}
+  .prod-card .pprice{padding:0 10px 10px;font-size:12px;color:var(--gold-light);font-weight:bold;}
 
   /* PRODUCT DETAIL */
   .detail-wrap{
     max-width:480px;margin:0 auto;text-align:center;
   }
   .detail-img{
-    width:100%;border-radius:14px;
+    width:100%;border-radius:16px;
     border:1px solid rgba(212,175,55,0.35);
-    box-shadow:0 10px 30px rgba(0,0,0,0.5);
+    box-shadow:0 14px 36px rgba(0,0,0,0.55);
     max-height:480px;object-fit:cover;
   }
-  .detail-name{font-size:22px;color:var(--gold-light);margin-top:20px;letter-spacing:1px;}
-  .detail-price{font-size:16px;color:var(--muted);margin-top:6px;}
+  .detail-name{font-size:23px;color:var(--gold-light);margin-top:22px;letter-spacing:1px;}
+  .detail-price{font-size:17px;color:var(--muted);margin-top:6px;font-weight:bold;}
+  .detail-disclaimer{
+    font-size:11.5px;color:var(--muted);margin-top:10px;font-style:italic;
+    max-width:380px;margin-left:auto;margin-right:auto;line-height:1.5;
+  }
   .call-btn{
-    margin-top:24px;
+    margin-top:22px;
     background:linear-gradient(135deg,var(--gold-light),var(--gold));
-    color:#111;border:none;padding:14px 30px;border-radius:30px;
-    font-size:14px;letter-spacing:1.5px;cursor:pointer;font-weight:bold;
+    color:#111;border:none;padding:15px 32px;border-radius:30px;
+    font-size:14.5px;letter-spacing:1.5px;cursor:pointer;font-weight:bold;
     display:inline-flex;align-items:center;gap:8px;
     box-shadow:0 8px 22px rgba(212,175,55,0.3);
+    transition:transform .2s, box-shadow .2s;
   }
+  .call-btn:hover{transform:translateY(-3px);box-shadow:0 12px 28px rgba(212,175,55,0.45);}
+
+  /* CONTACT CARD */
+  .contact-card{
+    background:linear-gradient(160deg, var(--card), #14141a);
+    border:1px solid rgba(212,175,55,0.25);
+    border-radius:16px;padding:24px;text-align:center;color:var(--text);
+    font-size:14px;line-height:2;
+    box-shadow:0 10px 30px rgba(0,0,0,0.4);
+  }
+  .contact-card .names{margin-bottom:6px;}
+  .contact-card .names strong{color:var(--gold-light);}
+
   footer{
-    text-align:center;padding:24px;color:var(--muted);font-size:12px;
+    text-align:center;padding:26px;color:var(--muted);font-size:12px;
     border-top:1px solid rgba(212,175,55,0.15);letter-spacing:1px;
   }
   @media(max-width:480px){
-    .hero-title{font-size:30px;}
-    .hero-photo{width:65px;height:90px;}
+    .hero-title{font-size:32px;}
+    .hero-photo{width:68px;height:92px;}
+    .back-btn-big{padding:11px 20px;font-size:13.5px;}
   }
 </style>
 </head>
@@ -177,8 +284,8 @@
 
 <div class="header">
   <div class="logo" onclick="goHome()">
-    <div class="logo-mark" style="background:transparent;box-shadow:none;width:34px;height:34px;">
-      <img src="https://i.imgur.com/x01lGMc.jpeg" style="width:100%;height:100%;object-fit:contain;">
+    <div class="logo-mark">
+      <img src="https://i.imgur.com/x01lGMc.jpeg" style="width:100%;height:100%;object-fit:contain;border-radius:50%;">
     </div>
     <div class="logo-text">ELYRA<small>by Shree Creations</small></div>
   </div>
@@ -187,37 +294,17 @@
 
 <div id="app"></div>
 
-<footer>© 2026 Elyra by Shree Creation — Premium Gold & Diamond Jewellery</footer>
+<footer>© 2026 Elyra by Shree Creations — Premium Gold &amp; Labgrown Diamond Jewellery</footer>
 
 <script>
 const CATEGORIES = [
-  {id:'rings', name:'Rings', icon:'💍', count:13},
-  {id:'necklaces', name:'Necklaces', icon:'📿', count:17},
-  {id:'earrings', name:'Earrings', icon:'✨', count:13},
-  {id:'bangles', name:'Bangles', icon:'⭕', count:22},
-  {id:'mangalsutra', name:'Mangalsutra', icon:'🔗', count:22},
+  {id:'rings', name:'Rings', count:13},
+  {id:'necklaces', name:'Necklaces', count:17},
+  {id:'earrings', name:'Earrings', count:13},
+  {id:'bangles', name:'Bangles', count:22},
+  {id:'mangalsutra', name:'Mangalsutra', count:22},
 ];
 
-// Self-contained SVG jewelry placeholder generator (no external images needed)
-function svgIcon(catId, seed){
-  const hue = 40 + (seed*7 % 20); // gold tones
-  const bg = `hsl(${hue},35%,${10 + (seed%4)*2}%)`;
-  const gold = `hsl(45,70%,${55 + (seed%3)*5}%)`;
-  const shapes = {
-    rings: `<circle cx="50" cy="60" r="26" fill="none" stroke="${gold}" stroke-width="6"/><polygon points="50,18 58,32 42,32" fill="${gold}"/>`,
-    necklaces: `<path d="M20,25 Q50,70 80,25" fill="none" stroke="${gold}" stroke-width="4"/><polygon points="50,68 58,82 42,82" fill="${gold}"/>`,
-    earrings: `<circle cx="50" cy="30" r="8" fill="${gold}"/><path d="M50,38 L50,75" stroke="${gold}" stroke-width="3"/><polygon points="50,75 58,88 42,88" fill="${gold}"/>`,
-    bangles: `<circle cx="50" cy="50" r="32" fill="none" stroke="${gold}" stroke-width="9"/>`,
-    mangalsutra: `<path d="M15,20 Q50,55 85,20" fill="none" stroke="${gold}" stroke-width="3"/><circle cx="50" cy="60" r="10" fill="${gold}"/><polygon points="50,68 56,80 44,80" fill="${gold}"/>`
-  };
-  const shape = shapes[catId] || shapes.rings;
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
-    <rect width="100" height="100" fill="${bg}"/>
-    ${shape}
-    <circle cx="${15 + (seed%5)*15}" cy="${15 + (seed%3)*10}" r="1.2" fill="#fff" opacity="0.6"/>
-  </svg>`;
-  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
-}
 const REAL_IMAGES = {
   rings: [
     "https://i.imgur.com/aasbpU0.jpeg","https://i.imgur.com/e3ofqV8.jpeg","https://i.imgur.com/8bhMLAZ.jpeg",
@@ -262,19 +349,31 @@ const REAL_IMAGES = {
     "https://i.imgur.com/AqLhzCa.jpeg"
   ]
 };
+
 function realOrFallback(catId, idx){
   const arr = REAL_IMAGES[catId];
-  if(arr && arr.length){
-    return arr[idx % arr.length];
-  }
+  if(arr && arr.length) return arr[idx % arr.length];
   return null;
 }
-function imgFor(seed){
-  return svgIcon('rings', hashStr(seed));
-}
-function hashStr(s){
-  let h=0; for(let i=0;i<s.length;i++){h=(h*31+s.charCodeAt(i))>>>0;}
-  return h % 100;
+
+function svgIcon(catId, seed){
+  const hue = 40 + (seed*7 % 20);
+  const bg = `hsl(${hue},35%,${10 + (seed%4)*2}%)`;
+  const gold = `hsl(45,70%,${55 + (seed%3)*5}%)`;
+  const shapes = {
+    rings: `<circle cx="50" cy="60" r="26" fill="none" stroke="${gold}" stroke-width="6"/><polygon points="50,18 58,32 42,32" fill="${gold}"/>`,
+    necklaces: `<path d="M20,25 Q50,70 80,25" fill="none" stroke="${gold}" stroke-width="4"/><polygon points="50,68 58,82 42,82" fill="${gold}"/>`,
+    earrings: `<circle cx="50" cy="30" r="8" fill="${gold}"/><path d="M50,38 L50,75" stroke="${gold}" stroke-width="3"/><polygon points="50,75 58,88 42,88" fill="${gold}"/>`,
+    bangles: `<circle cx="50" cy="50" r="32" fill="none" stroke="${gold}" stroke-width="9"/>`,
+    mangalsutra: `<path d="M15,20 Q50,55 85,20" fill="none" stroke="${gold}" stroke-width="3"/><circle cx="50" cy="60" r="10" fill="${gold}"/><polygon points="50,68 56,80 44,80" fill="${gold}"/>`
+  };
+  const shape = shapes[catId] || shapes.rings;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+    <rect width="100" height="100" fill="${bg}"/>
+    ${shape}
+    <circle cx="${15 + (seed%5)*15}" cy="${15 + (seed%3)*10}" r="1.2" fill="#fff" opacity="0.6"/>
+  </svg>`;
+  return 'data:image/svg+xml;utf8,' + encodeURIComponent(svg);
 }
 
 function genProducts(catId, count){
@@ -285,7 +384,6 @@ function genProducts(catId, count){
     bangles:['Gold Kada','Diamond Bangle','Classic Bangle Set','Antique Bangle'],
     mangalsutra:['Traditional Mangalsutra','Diamond Mangalsutra','Modern Design Mangalsutra']
   };
-  // Rough placeholder ranges per category (14K gold + labgrown diamond/semi-precious stones)
   const priceRanges = {
     rings: [12000, 45000],
     necklaces: [25000, 95000],
@@ -312,12 +410,10 @@ function genProducts(catId, count){
 
 let state = {view:'home', cat:null, product:null};
 
-function goHome(){ state={view:'home'}; render(); }
-function goCatalog(){ state={view:'catalog'}; render(); }
-function openCat(catId){ state={view:'category', cat:catId}; render(); }
-function openProduct(p){ state={...state, view:'product', product:p}; render(); }
-function backFromCategory(){ state={view:'catalog'}; render(); }
-function backFromProduct(){ render(); state.view='category'; render(); }
+function goHome(){ state={view:'home'}; render(); window.scrollTo(0,0); }
+function goCatalog(){ state={view:'catalog'}; render(); window.scrollTo(0,0); }
+function openCat(catId){ state={view:'category', cat:catId}; render(); window.scrollTo(0,0); }
+function openProduct(p){ state={...state, view:'product', product:p}; render(); window.scrollTo(0,0); }
 
 function render(){
   const app = document.getElementById('app');
@@ -325,7 +421,6 @@ function render(){
   if(state.view==='home'){
     app.innerHTML = `
       <div class="hero">
-        <img src="https://i.imgur.com/x01lGMc.jpeg" style="width:80px;height:80px;object-fit:contain;margin-bottom:10px;">
         <div class="hero-photo-strip">
           ${[
             REAL_IMAGES.rings[0], REAL_IMAGES.necklaces[0], REAL_IMAGES.earrings[0],
@@ -334,12 +429,8 @@ function render(){
         </div>
         <div class="hero-title">ELYRA</div>
         <div class="hero-sub">Shree Creations</div>
-        <div style="color:var(--gold-light);font-size:14px;letter-spacing:1px;margin-bottom:6px;font-style:italic;">
-          Eternal stars that doesn't cost the Earth
-        </div>
-        <div style="color:var(--muted);font-size:13px;letter-spacing:1px;margin-bottom:28px;">
-          Labgrown &amp; Natural Diamonds
-        </div>
+        <div class="tagline">Eternal stars that doesn't cost the Earth</div>
+        <div class="tagline2">Labgrown &amp; Natural Diamonds</div>
         <button class="cta-btn" onclick="goCatalog()">View Catalog</button>
         <div class="about-strip">
           Elyra by Shree Creations brings you premium gold &amp; diamond jewellery,
@@ -350,8 +441,8 @@ function render(){
       </div>
       <div class="page" style="max-width:500px;">
         <div class="section-title" style="font-size:20px;">Contact Us</div>
-        <div style="background:var(--card);border:1px solid rgba(212,175,55,0.25);border-radius:14px;padding:22px;text-align:center;color:var(--text);font-size:14px;line-height:2;">
-          <div><strong style="color:var(--gold-light);">Shreya Poddar</strong> &nbsp;|&nbsp; <strong style="color:var(--gold-light);">Vishvesh Poddar</strong></div>
+        <div class="contact-card">
+          <div class="names"><strong>Shreya Poddar</strong> &nbsp;|&nbsp; <strong>Vishvesh Poddar</strong></div>
           <div>📞 9431027748, 8210961619</div>
           <div>✉️ vishveshpoddar@hotmail.com</div>
           <div>📍 Flat No. 133, 4th Floor, Frazer Road, Patna</div>
@@ -368,6 +459,10 @@ function render(){
       <div class="page">
         <div class="section-title">Our Collections</div>
         <div class="section-sub">Tap a category to explore</div>
+        <div class="price-notice">
+          ✦ Prices shown are <strong>approximate</strong> and may vary based on gold weight, diamond carat &amp; quality.
+          For accurate, up-to-date pricing, please <a href="tel:9431027748">call us</a> or contact via the details on our Home page.
+        </div>
         <div class="cat-grid">
           ${CATEGORIES.map(c=>`
             <div class="cat-box" onclick="openCat('${c.id}')">
@@ -385,9 +480,12 @@ function render(){
     const products = genProducts(cat.id, cat.count);
     app.innerHTML = `
       <div class="page">
-        <button class="back-btn" onclick="goCatalog()">← Back to Catalog</button>
+        <button class="back-btn-big" onclick="goCatalog()"><span class="arrow">←</span> Back to Catalog</button>
         <div class="section-title">${cat.name}</div>
         <div class="section-sub">${products.length} items</div>
+        <div class="price-notice">
+          ✦ Prices may vary a lot depending on gold weight &amp; diamond quality. For correct price info, please call us.
+        </div>
         <div class="prod-grid">
           ${products.map(p=>`
             <div class="prod-card" onclick='openProduct(${JSON.stringify(p)})'>
@@ -405,17 +503,21 @@ function render(){
     const p = state.product;
     app.innerHTML = `
       <div class="page">
-        <button class="back-btn" onclick="openCat('${p.cat}')">← Back to ${CATEGORIES.find(c=>c.id===p.cat).name}</button>
+        <button class="back-btn-big" onclick="openCat('${p.cat}')"><span class="arrow">←</span> Back to ${CATEGORIES.find(c=>c.id===p.cat).name}</button>
         <div class="detail-wrap">
           <img class="detail-img" src="${p.img}">
           <div class="detail-name">${p.name}</div>
           <div class="detail-price">${p.price}</div>
+          <div class="detail-disclaimer">
+            ✦ Price may vary based on gold weight &amp; diamond quality. Call for accurate pricing &amp; availability.
+          </div>
           <div>
             <button class="call-btn" onclick="window.location.href='tel:9431027748'">
               📞 Interested? Call Now
             </button>
           </div>
         </div>
+        <button class="back-btn-big" onclick="goCatalog()" style="margin-top:30px;"><span class="arrow">←</span> Back to Catalog</button>
       </div>
     `;
   }
