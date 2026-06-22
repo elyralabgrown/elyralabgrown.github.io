@@ -2,7 +2,9 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Elyra by Shree Creations</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/jpeg" href="https://i.imgur.com/x01lGMc.jpeg">
+<title>ELYRA Shree Creation</title>
 <style>
   :root{
     --gold:#d4af37;
@@ -15,13 +17,16 @@
   }
   *{box-sizing:border-box;margin:0;padding:0;}
   html{scroll-behavior:smooth;}
+  html, body{height:100%;}
   body{
     background:var(--bg);
     color:var(--text);
     font-family:'Georgia','Times New Roman',serif;
     min-height:100vh;
+    display:flex;flex-direction:column;
     animation:fadeIn .5s ease;
   }
+  #app{flex:1;}
   @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
   @keyframes shimmer{
     0%{background-position:-200% 0;}
@@ -484,7 +489,7 @@ function render(){
         <div class="section-title">${cat.name}</div>
         <div class="section-sub">${products.length} items</div>
         <div class="price-notice">
-          ✦ Prices may vary a lot depending on gold weight &amp; diamond quality. For correct price info, please call us.
+          ✦ Prices may vary a lot depending on gold weight &amp; diamond quality. For correct price info, please <a href="#" onclick="goHome();return false;">contact us</a>.
         </div>
         <div class="prod-grid">
           ${products.map(p=>`
@@ -509,7 +514,7 @@ function render(){
           <div class="detail-name">${p.name}</div>
           <div class="detail-price">${p.price}</div>
           <div class="detail-disclaimer">
-            ✦ Price may vary based on gold weight &amp; diamond quality. Call for accurate pricing &amp; availability.
+            ✦ Price may vary based on gold weight &amp; diamond quality. <a href="#" onclick="goHome();return false;" style="color:var(--gold-light);border-bottom:1px dotted var(--gold);text-decoration:none;">Contact us</a> for accurate pricing &amp; availability.
           </div>
           <div>
             <button class="call-btn" onclick="window.location.href='tel:9431027748'">
